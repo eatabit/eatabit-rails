@@ -1,9 +1,6 @@
-module EatabitRailsGem
+require "httparty"
 
-  class WhoIs
+Dir[File.dirname(__FILE__) + '/eatabit_rails/rest/*.rb'].each do |file|
 
-    def self.awesome?
-      puts "YOU ARE AWESOME!!"
-    end
-  end
+  require file
 end
