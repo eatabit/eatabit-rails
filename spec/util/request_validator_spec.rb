@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Twilio::Util::RequestValidator do
-  it 'should properly validate a Twilio Voice request' do
+describe Eatabit::Util::RequestValidator do
+  it 'should properly validate a Eatabit Voice request' do
     token = '2bd9e9638872de601313dc77410d3b23'
-    validator = Twilio::Util::RequestValidator.new token
+    validator = Eatabit::Util::RequestValidator.new token
     url = 'http://twiliotests.heroku.com/validate/voice'
     params = {
       'ToState' => 'California',
@@ -37,9 +37,9 @@ describe Twilio::Util::RequestValidator do
     validator.validate(url, params, signature).should == true
   end
 
-  it 'should properly validate a Twilio SMS request' do
+  it 'should properly validate a Eatabit SMS request' do
     token = '2bd9e9638872de601313dc77410d3b23'
-    validator = Twilio::Util::RequestValidator.new token
+    validator = Eatabit::Util::RequestValidator.new token
     url = 'http://twiliotests.heroku.com/validate/sms'
     params = {
       'ToState' => 'CA',

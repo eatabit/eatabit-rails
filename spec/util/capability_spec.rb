@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Twilio::Util::Capability do
+describe Eatabit::Util::Capability do
   before :each do
-    @capability = Twilio::Util::Capability.new 'myAccountSid', 'myAuthToken'
+    @capability = Eatabit::Util::Capability.new 'myAccountSid', 'myAuthToken'
   end
 
   def queries(q)

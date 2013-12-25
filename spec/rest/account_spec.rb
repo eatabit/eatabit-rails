@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Twilio::REST::Account do
+describe Eatabit::REST::Account do
 
   before do
-    @account = Twilio::REST::Account.new('someUri', 'someClient')
+    @account = Eatabit::REST::Account.new('someUri', 'someClient')
   end
 
   it 'sets up a notifications resources object' do

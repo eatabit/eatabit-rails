@@ -1,42 +1,40 @@
 require 'spec_helper'
 
-describe Twilio::REST::Client do
+describe Eatabit::REST::Client do
+
   it 'should not raise an error if the response body is empty' do
-    FakeWeb.register_uri(:any, %r/api\.twilio\.com/, :body => '')
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
-    Twilio::REST::Account.new('/1', twilio).delete
+    FakeWeb.register_uri(:any, %r/api\.eatabit\.io/, body: '')
+    client = Eatabit::REST::Client.new('someSid', 'someToken')
+
+    Eatabit::REST::Account.new('/1', client).delete
   end
 
   it 'should not raise an error if the response body is nil' do
-    response = double(:response, :body => nil)
-    connection = double(:connection, :request => response)
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
-    twilio.instance_variable_set(:@connection, connection)
-    Twilio::REST::Account.new('/1', twilio).delete
+    response = double(:response, body: nil)
+    connection = double(:connection, request: response)
+    client = Eatabit::REST::Client.new('someSid', 'someToken')
+    client.instance_variable_set(:@connection, connection)
+
+    Eatabit::REST::Account.new('/1', client).delete
   end
 
   it 'should set up a new client instance with the given sid and token' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
-    twilio.account_sid.should == 'someSid'
-    twilio.instance_variable_get('@auth_token').should == 'someToken'
+    client = Eatabit::REST::Client.new('someSid', 'someToken')
+
+    expect(client.account_sid).to eq('someSid')
+    expect(client.instance_variable_get('@auth_token')).to eq('someToken')
   end
 
   it 'should set up the proper default http ssl connection' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken')
     connection = twilio.instance_variable_get('@connection')
-    connection.address.should == 'api.twilio.com'
+    connection.address.should == 'api.eatabit.io'
     connection.port.should == 443
     connection.use_ssl?.should == true
   end
 
-  it 'should set up the requested ssl verification ca_file if provided' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken', :ssl_ca_file => '/path/to/ca/file')
-    connection = twilio.instance_variable_get('@connection')
-    connection.ca_file.should == '/path/to/ca/file'
-  end
-
   it 'should set up the proper http ssl connection when a different domain is given' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken', :host => 'api.faketwilio.com')
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken', :host => 'api.faketwilio.com')
     connection = twilio.instance_variable_get('@connection')
     connection.address.should == 'api.faketwilio.com'
     connection.port.should == 443
@@ -45,7 +43,7 @@ describe Twilio::REST::Client do
 
   it 'should adjust the open and read timeouts on the underlying Net::HTTP object when asked' do
     timeout = rand(30)
-    twilio = Twilio::REST::Client.new('someSid', 'someToken', :timeout => timeout)
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken', :timeout => timeout)
     connection = twilio.instance_variable_get('@connection')
     connection.port.should == 443
     connection.use_ssl?.should == true
@@ -54,7 +52,7 @@ describe Twilio::REST::Client do
   end
 
   it 'should set up the proper http ssl connection when a proxy_host is given' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken', :host => 'api.faketwilio.com', :proxy_addr => 'localhost')
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken', :host => 'api.faketwilio.com', :proxy_addr => 'localhost')
     connection = twilio.instance_variable_get('@connection')
     connection.proxy?.should == true
     connection.proxy_address.should == 'localhost'
@@ -65,7 +63,7 @@ describe Twilio::REST::Client do
   end
 
   it 'should set up the proper http ssl connection when a proxy_host and proxy_port are given' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken', :host => 'api.faketwilio.com', :proxy_addr => 'localhost', :proxy_port => 13128)
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken', :host => 'api.faketwilio.com', :proxy_addr => 'localhost', :proxy_port => 13128)
     connection = twilio.instance_variable_get('@connection')
     connection.proxy?.should == true
     connection.proxy_address.should == 'localhost'
@@ -76,19 +74,19 @@ describe Twilio::REST::Client do
   end
 
   it 'should set up an accounts resources object' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken')
     twilio.should respond_to(:accounts)
     twilio.accounts.instance_variable_get('@path').should == '/2010-04-01/Accounts'
   end
 
   it 'should set up an account object with the given sid' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken')
     twilio.should respond_to(:account)
     twilio.account.instance_variable_get('@path').should == '/2010-04-01/Accounts/someSid'
   end
 
   it 'should convert all parameter names to Twilio-style names' do
-    twilio = Twilio::REST::Client.new('someSid', 'someToken')
+    twilio = Eatabit::REST::Client.new('someSid', 'someToken')
     untwilified = {:sms_url => 'someUrl', 'voiceFallbackUrl' => 'anotherUrl',
       'Status_callback' => 'yetAnotherUrl'}
     twilified = {:SmsUrl => 'someUrl', :VoiceFallbackUrl => 'anotherUrl',

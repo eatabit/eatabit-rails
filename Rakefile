@@ -2,11 +2,11 @@ require 'rubygems'
 require 'rubygems/package_task'
 require 'rspec/core/rake_task'
 
-spec = eval(File.read('twilio-ruby.gemspec'))
+spec = eval(File.read('eatabit-rails.gemspec'))
 
 Gem::PackageTask.new(spec) do |p|
   p.gem_spec = spec
 end
 
 RSpec::Core::RakeTask.new
-task :default => :spec
+task default: :spec

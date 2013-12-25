@@ -1,5 +1,5 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
-require 'twilio-ruby'
+require 'eatabit-rails'
 require 'fakeweb'
 require 'rack'
 
