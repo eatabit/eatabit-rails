@@ -45,7 +45,7 @@ module Eatabit
       include Eatabit::Util
       include Eatabit::REST::Utils
 
-      API_VERSION = '2010-04-01'
+      API_VERSION = 'v1'
 
       HTTP_HEADERS = {
         'Accept' => 'application/json',
@@ -193,11 +193,8 @@ module Eatabit
         end
       end
 
-      ##
-      # Set up +account+ and +accounts+ attributes.
-      def set_up_subresources # :doc:
-        @accounts = Eatabit::REST::Accounts.new "/#{API_VERSION}/Accounts", self
-        @account = @accounts.get @account_sid
+      def set_up_subresources
+        @account = Eatabit::REST::Account.new "/#{API_VERSION}/account/#{@account_sid}", self
       end
 
       ##

@@ -7,7 +7,7 @@ describe Eatabit::REST::Account do
   end
 
   it 'sets up a notifications resources object' do
-    @account.should respond_to(:notifications)
-    @account.notifications.instance_variable_get('@path').should == 'someUri/Notifications'
+    expect(@account).to respond_to(:notifications)
+    expect(@account.notifications.instance_variable_get('@path')).to eq('someUri/Notifications')
   end
 end
