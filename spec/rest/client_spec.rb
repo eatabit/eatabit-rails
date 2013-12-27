@@ -60,16 +60,4 @@ describe Eatabit::REST::Client do
     expect(client).to respond_to(:account)
     expect(client.account.instance_variable_get('@path')).to eq('/v1/account/id')
   end
-
-  # it 'should convert all parameter names to Twilio-style names' do
-  #   twilio = Eatabit::REST::Client.new('id', 'key')
-  #   untwilified = {:sms_url => 'someUrl', 'voiceFallbackUrl' => 'anotherUrl',
-  #     'Status_callback' => 'yetAnotherUrl'}
-  #   twilified = {:SmsUrl => 'someUrl', :VoiceFallbackUrl => 'anotherUrl',
-  #     :StatusCallback => 'yetAnotherUrl'}
-
-  #   twilio.instance_eval do
-  #     twilify(untwilified).should == twilified
-  #   end
-  # end
 end
