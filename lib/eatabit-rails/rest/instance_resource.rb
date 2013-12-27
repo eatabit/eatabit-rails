@@ -95,7 +95,6 @@ module Eatabit
         end
         self.class.instance_eval {attr_reader *resources}
       end
-
     end
   end
 end

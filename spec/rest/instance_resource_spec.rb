@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Eatabit::REST::InstanceResource do
+
   it 'should set up an internal reference to the uri and client' do
     resource = Eatabit::REST::InstanceResource.new('some/uri', 'someClient')
     resource.instance_variable_get('@path').should == 'some/uri'
