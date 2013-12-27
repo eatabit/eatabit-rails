@@ -57,8 +57,6 @@ module Eatabit
         :host => 'api.eatabit.io',
         :port => 443,
         :use_ssl => true,
-        :ssl_verify_peer => false,
-        :ssl_ca_file => File.dirname(__FILE__) + '/../../../conf/cacert.pem',
         :timeout => 30,
         :proxy_addr => nil,
         :proxy_port => nil,
@@ -67,7 +65,7 @@ module Eatabit
         :retry_limit => 1,
       }
 
-      attr_reader :account_sid, :account, :accounts, :last_request,
+      attr_reader :account_sid, :account, :last_request,
         :last_response
 
       ##
@@ -185,12 +183,7 @@ module Eatabit
       # This is a private method documented for completeness.
       def set_up_ssl # :doc:
         @connection.use_ssl = @config[:use_ssl]
-        if @config[:ssl_verify_peer]
-          @connection.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          @connection.ca_file = @config[:ssl_ca_file]
-        else
-          @connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        end
+        @connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
 
       def set_up_subresources

@@ -19,7 +19,6 @@ module Eatabit
           something.to_s.gsub(/[A-Z][a-z]*/) {|s| "_#{s.downcase}"}.gsub(/^_/, '')
         end
       end
-
     end
   end
 end

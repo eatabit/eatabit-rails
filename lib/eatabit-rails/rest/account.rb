@@ -7,7 +7,7 @@ module Eatabit
       def initialize(path, client, params={})
         super path, client, params
 
-        resource :notifications, :usage
+        resource :orders
       end
     end
   end

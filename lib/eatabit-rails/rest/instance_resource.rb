@@ -84,13 +84,13 @@ module Eatabit
       end
 
       def resource(*resources)
-        custom_resource_names = {:sms => 'SMS', :sip => 'SIP'}
+        # custom_resource_names = {:sms => 'SMS', :sip => 'SIP'}
         resources.each do |r|
-          resource = twilify r
-          relative_path = custom_resource_names.fetch(r, resource)
-          path = "#{@path}/#{relative_path}"
+          # resource = twilify r
+          resource = r.downcase
+          path = "#{@path}/#{resource}"
           enclosing_module = @submodule == nil ? (Eatabit::REST) : (Eatabit::REST.const_get(@submodule))
-          resource_class = enclosing_module.const_get resource
+          resource_class = enclosing_module.const_get resource.capitalize
           instance_variable_set("@#{r}", resource_class.new(path, @client))
         end
         self.class.instance_eval {attr_reader *resources}
