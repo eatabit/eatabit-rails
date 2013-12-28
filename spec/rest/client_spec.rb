@@ -27,8 +27,8 @@ describe Eatabit::REST::Client do
   it 'should set up a new client instance with the given sid and token' do
     client = Eatabit::REST::Client.new('id', 'key')
 
-    expect(client.account_sid).to eq('id')
-    expect(client.instance_variable_get('@auth_token')).to eq('key')
+    expect(client.account_id).to eq('id')
+    expect(client.instance_variable_get('@key')).to eq('key')
   end
 
   it 'should set up the proper default http ssl connection' do

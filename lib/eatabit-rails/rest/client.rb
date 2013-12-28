@@ -8,7 +8,7 @@ module Eatabit
     #
     # Instantiate a client like so:
     #
-    #   @client = Eatabit::REST::Client.new account_sid, auth_token
+    #   @client = Eatabit::REST::Client.new account_id, key
     #
     # There are a few options you can use to configure the way your client will
     # communicate with Twilio. See #new for a list and descriptions.
@@ -21,7 +21,7 @@ module Eatabit
     #
     # Most of the time you'll want to start with the +account+ attribute. This
     # object is an instance of Eatabit::REST::Account that wraps the account
-    # referenced by the +account_sid+ you used when instantiating the client.
+    # referenced by the +account_id+ you used when instantiating the client.
     #
     # An instance of Eatabit::REST::Account exposes objects wrapping all of the
     # account-level Twilio resources as properties. So
@@ -35,7 +35,7 @@ module Eatabit
     # If you are doing anything related to subaccounts you'll want to start
     # here. This object is an instance of Eatabit::REST::Accounts that wraps
     # the list of accounts belonging to the master account referenced by
-    # the +account_sid+ used to instantiate the client.
+    # the +account_id+ used to instantiate the client.
     #
     # This class inherits from Eatabit::REST::ListResource, so you can use
     # methods like ListResource#list to return a (possibly filtered) list of
@@ -65,12 +65,12 @@ module Eatabit
         :retry_limit => 1,
       }
 
-      attr_reader :account_sid, :account, :last_request,
-        :last_response
+      attr_reader :account_id,  :account, :last_request,
+                                :last_response
 
       ##
       # Instantiate a new HTTP client to talk to Twilio. The parameters
-      # +account_sid+ and +auth_token+ are required and used to generate the
+      # +account_id+ and +key+ are required and used to generate the
       # HTTP basic auth header in each request. The +options+ parameter is a
       # hash of connection configuration options. the following keys are
       # supported:
@@ -133,15 +133,16 @@ module Eatabit
       #
       # The number of times to retry a request that has failed before throwing
       # an exception. Defaults to one.
-      def initialize(account_sid, auth_token, options={})
-        @account_sid, @auth_token = account_sid.strip, auth_token.strip
+
+      def initialize(account_id, key, options={})
+        @account_id, @key = account_id.strip, key.strip
         @config = DEFAULTS.merge! options
         set_up_connection
         set_up_subresources
       end
 
       def inspect # :nodoc:
-        "<Eatabit::REST::Client @account_sid=#{@account_sid}>"
+        "<Eatabit::REST::Client @account_id=#{@account_id}>"
       end
 
       ##
@@ -158,7 +159,7 @@ module Eatabit
             path << "?#{url_encode(params)}" if method == :get && !params.empty?
           end
           request = method_class.new path, HTTP_HEADERS
-          request.basic_auth @account_sid, @auth_token
+          request.basic_auth @account_id, @key
           request.form_data = params if [:post, :put].include? method
           connect_and_send request
         end
@@ -187,7 +188,7 @@ module Eatabit
       end
 
       def set_up_subresources
-        @account = Eatabit::REST::Account.new "/#{API_VERSION}/account/#{@account_sid}", self
+        @account = Eatabit::REST::Account.new "/#{API_VERSION}/account/#{@account_id}", self
       end
 
       ##
