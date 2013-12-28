@@ -18,3 +18,4 @@ tmp
 _yardoc
 doc/
 .rvmrc
+vcr_cassettes

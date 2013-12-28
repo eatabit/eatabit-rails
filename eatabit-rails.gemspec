@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'fakeweb', '~> 1.3.0'
   s.add_development_dependency 'rack',    '~> 1.3.0'
   s.add_development_dependency 'turn',    '~> 0.9.6'
+  s.add_development_dependency 'vcr',     '~> 2.8.0'
 end

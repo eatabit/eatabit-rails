@@ -1,8 +1,11 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
+
 require 'eatabit-rails'
 require 'fakeweb'
 require 'rack'
 require 'turn'
+
+Dir[File.join(File.dirname(__FILE__), 'support', '*.*')].each { |f| require f }
 
 Turn.config do |c|
  # :outline  - turn's original case/test outline mode [default]
@@ -13,4 +16,4 @@ Turn.config do |c|
  c.natural = true
 end
 
-FakeWeb.allow_net_connect = false
+FakeWeb.allow_net_connect = true
