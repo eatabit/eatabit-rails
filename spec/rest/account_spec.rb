@@ -8,14 +8,14 @@ describe Eatabit::REST::Account do
 
     before { @account = Eatabit::REST::Account.new('someUri', 'someClient') }
 
-    it 'sets up an orders resources object' do
-      expect(@account).to respond_to(:orders)
-      expect(@account.orders.instance_variable_get('@path')).to eq('someUri/orders')
-    end
-
     it 'sets up a restaurant resource object' do
       expect(@account).to respond_to(:restaurant)
       expect(@account.restaurant.instance_variable_get('@path')).to eq('someUri/restaurant')
+    end
+
+    it 'sets up an order resource object' do
+      expect(@account).to respond_to(:order)
+      expect(@account.order.instance_variable_get('@path')).to eq('someUri/order')
     end
   end
 
