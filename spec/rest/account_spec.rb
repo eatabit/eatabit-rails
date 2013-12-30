@@ -27,19 +27,19 @@ describe Eatabit::REST::Account do
 
       subject { @account }
 
-      it 'should retreive Account data from the API' do
+      it 'should retreive Account' do
         expect(subject.name).to eq('eatabit.io')
       end
     end
 
-    describe 'non-existent account', vcr: true do
+    describe 'incorrect account in route param', vcr: true do
 
       before { @account = Eatabit::REST::Account.new('/v1/account/9999', @client) }
 
       subject { @account }
 
-      it 'should retreive an error from the API' do
-        expect { subject.try(:name) }.to raise_error(Eatabit::REST::RequestError)
+      it 'should retreive authenticated Account ' do
+        expect(subject.name).to eq('eatabit.io')
       end
     end
   end
