@@ -12,6 +12,11 @@ describe Eatabit::REST::Account do
       expect(@account).to respond_to(:orders)
       expect(@account.orders.instance_variable_get('@path')).to eq('someUri/orders')
     end
+
+    it 'sets up a restaurant resource object' do
+      expect(@account).to respond_to(:restaurant)
+      expect(@account.restaurant.instance_variable_get('@path')).to eq('someUri/restaurant')
+    end
   end
 
   describe 'instance' do
