@@ -1,4 +1,5 @@
 module Eatabit
+
   module REST
     ##
     # A class to wrap an instance resource (like a call or application) within
@@ -7,6 +8,7 @@ module Eatabit
     # directly. But reviewing the available methods is informative since they
     # are rarely overridden in the inheriting class.
     class InstanceResource
+
       include Utils
 
       ##

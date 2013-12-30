@@ -14,14 +14,28 @@ describe Eatabit::REST::Account do
     end
   end
 
-  describe 'instance', vcr: true do
+  describe 'instance' do
 
-    before { @account = Eatabit::REST::Account.new('/v1/account/1', @client) }
+    describe 'existing account', vcr: true do
 
-    subject { @account }
+      before { @account = Eatabit::REST::Account.new('/v1/account/1', @client) }
 
-    it 'should retreive Account data from the API' do
-      expect(subject.name).to eq('eatabit.io')
+      subject { @account }
+
+      it 'should retreive Account data from the API' do
+        expect(subject.name).to eq('eatabit.io')
+      end
+    end
+
+    describe 'non-existent account', vcr: true do
+
+      before { @account = Eatabit::REST::Account.new('/v1/account/9999', @client) }
+
+      subject { @account }
+
+      it 'should retreive an error from the API' do
+        expect { subject.try(:name) }.to raise_error(Eatabit::REST::RequestError)
+      end
     end
   end
 end

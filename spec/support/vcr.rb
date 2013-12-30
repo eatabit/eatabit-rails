@@ -5,10 +5,12 @@ VCR.configure do |c|
   c.hook_into :fakeweb
   c.ignore_localhost = true
   c.configure_rspec_metadata!
-  c.after_http_request(:recordable?) do |request|
+  c.after_http_request(:recordable?) do |request, response|
     puts "============> RECORDING REQUEST:\n#{request}"
+    puts "============> RECORDING RESPONSE:\n#{response}"
   end
-  c.after_http_request(:stubbed?) do |request|
+  c.after_http_request(:stubbed?) do |request, response|
     puts "============> STUBBED REQUEST:\n#{request}"
+    puts "============> RECORDING RESPONSE:\n#{response}"
   end
 end

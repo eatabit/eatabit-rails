@@ -214,7 +214,7 @@ module Eatabit
           object = MultiJson.load response.body
         end
         if response.kind_of? Net::HTTPClientError
-          raise Eatabit::REST::RequestError.new object['message'], object['code']
+          raise Eatabit::REST::RequestError.new object['error'], object['code']
         end
         object
       end

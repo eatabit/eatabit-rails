@@ -1,8 +1,10 @@
 module Eatabit
-  module REST
-    class ListResource
-      include Utils
 
+  module REST
+
+    class ListResource
+
+      include Utils
 
       def initialize(path, client)
         custom_names = {"Media" => "MediaInstance", "IpAddresses" => "IpAddress"}
