@@ -4,6 +4,8 @@ module Eatabit
 
     class ListResource
 
+      include Utils
+
       def initialize(path, client)
         @path, @client = path, client
         resource_name = self.class.name.split('::')[-1]
