@@ -10,7 +10,6 @@ require 'jwt'
 require 'eatabit-rails/version' unless defined?(Eatabit::VERSION)
 require 'eatabit-rails/util'
 require 'eatabit-rails/configuration'
-require 'eatabit-rails/util/request_validator'
 require 'eatabit-rails/rest/errors'
 require 'eatabit-rails/rest/utils'
 require 'eatabit-rails/rest/instance_resource'
