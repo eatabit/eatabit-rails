@@ -153,7 +153,7 @@ module Eatabit
       [:get, :put, :post, :delete].each do |method|
         method_class = Net::HTTP.const_get method.to_s.capitalize
         define_method method do |path, *args|
-          params = twilify args[0]; params = {} if params.empty?
+          params = twilify(args[0]); params = {} if params.empty?
           unless args[1] # build the full path unless already given
             path = "#{path}.json"
             path << "?#{url_encode(params)}" if method == :get && !params.empty?

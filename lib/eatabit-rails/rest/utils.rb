@@ -3,13 +3,7 @@ module Eatabit
     module Utils
 
       def twilify(something)
-        if something.is_a? Hash
-          Hash[*something.to_a.map! {|a| [twilify(a[0]).to_sym, a[1]]}.flatten(1)]
-        else
-          something.to_s.split('_').map! do |s|
-            [s[0,1].capitalize, s[1..-1]].join
-          end.join
-        end
+        Hash[*something.to_a.map! {|a| [a[0].to_sym, a[1]]}.flatten(1)]
       end
 
       def detwilify(something)
