@@ -16,9 +16,9 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = Dir['spec/**/*.rb']
 
-  s.add_dependency('multi_json', '>= 1.3.0')
-  s.add_dependency('builder', '>= 2.1.2')
-  s.add_dependency('jwt', '>= 0.1.2')
+  s.add_runtime_dependency 'multi_json',  '~> 1.8', '>= 1.8.2'
+  s.add_runtime_dependency 'builder',     '~> 3.2', '>= 3.2.2'
+  s.add_runtime_dependency 'jwt',         '~> 0.1', '>= 0.1.8'
 
   s.add_development_dependency 'rake',    '~> 0.9.0'
   s.add_development_dependency 'rspec',   '~> 2.14.1'
